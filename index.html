@@ -6,7 +6,7 @@
     <title>Random Text Generator</title>
     <style>
         body {
-            font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
             text-align: center;
             margin: 50px;
             background: linear-gradient(to right, purple, black);
@@ -14,22 +14,24 @@
         }
 
         #result {
-            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
             font-style: italic;
-            font-weight:500 ;
+            font-weight: 500;
             font-size: 1.5em;
             margin-top: 20px;
         }
+
         #button {
             display: inline-block;
             padding: 20px 40px;
             border: none;
             background-color: rgb(29, 29, 139);
             cursor: pointer;
-            text-decoration:solid;
+            text-decoration: solid;
             transition: all 0.4s ease;
-            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-            }
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -58,19 +60,18 @@
             "Your smile (your genuine smile) is so adorable; it makes me feel warm and fuzzy every time I see you smile.",
             "You're so adorable every time you giggle and laugh.",
             "You're so cute when you're nervous."
+        ];
 
-            ];
-
-         function generateRandomText() {
-            // Generate a random number between 1 and 10
-            const randomNumber = Math.floor(Math.random() * 16) + 1;
+        function generateRandomText() {
+            // Generate a random number between 0 and textArray.length - 1
+            const randomNumber = Math.floor(Math.random() * textArray.length);
 
             // Get the text corresponding to the random number
-            const randomText = textArray[randomNumber - 1];
+            const randomText = textArray[randomNumber];
 
             // Display the result
-            document.getElementById("result").innerText = ${randomText};
-         }
+            document.getElementById("result").innerText = randomText;
+        }
     </script>
 </body>
 </html>
