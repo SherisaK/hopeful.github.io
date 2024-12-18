@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Text Generator</title>
+    <title>Sequential Text Generator</title>
     <style>
         body {
             font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -13,7 +13,7 @@
             color: white;
         }
 
-        #result {
+        #result, #userResponse, #assumptionText {
             font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
             font-style: italic;
             font-weight: 500;
@@ -21,7 +21,7 @@
             margin-top: 20px;
         }
 
-        #button {
+        #button, #nextButton, #submitResponseButton {
             display: inline-block;
             padding: 20px 40px;
             border: none;
@@ -31,15 +31,41 @@
             transition: all 0.4s ease;
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
             color: white;
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 1em;
+            width: 50%;
+            margin-top: 20px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
         }
     </style>
 </head>
 <body>
-    <h1>16 Reasons why I love you</h1>
+    <!-- Greeting Section -->
+    <div id="greeting">
+        <h1>How are you doing today?</h1>
+        <input type="text" id="responseInput" placeholder="Enter your response here..." />
+        <button id="submitResponseButton" onclick="handleResponse()">Submit</button>
+    </div>
 
-    <button id="button" onclick="generateRandomText()">Generate Random Text</button>
+    <!-- Transition Section -->
+    <div id="transition" style="display: none;">
+        <h1 id="userResponse"></h1>
+        <p id="assumptionText">I am really hoping and assuming we are doing okay today.</p>
+        <button id="nextButton" onclick="startGenerator()">Next</button>
+    </div>
 
-    <div id="result"></div>
+    <!-- Generator Section -->
+    <div id="generator" style="display: none;">
+        <h1>16 Reasons why I love you</h1>
+        <button id="button" onclick="generateSequentialText()">Next Reason</button>
+        <div id="result"></div>
+    </div>
 
     <script>
         // Array of information
@@ -62,15 +88,37 @@
             "You're so cute when you're nervous."
         ];
 
-        function generateRandomText() {
-            // Generate a random number between 0 and textArray.length - 1
-            const randomNumber = Math.floor(Math.random() * textArray.length);
+        // Counter to track the current index
+        let currentIndex = 0;
 
-            // Get the text corresponding to the random number
-            const randomText = textArray[randomNumber];
+        // Handle user response
+        function handleResponse() {
+            const responseInput = document.getElementById("responseInput").value;
 
-            // Display the result
-            document.getElementById("result").innerText = randomText;
+            if (responseInput.trim() === "") {
+                alert("Please enter your response!");
+                return;
+            }
+
+            // Display the response and assumption text
+            document.getElementById("userResponse").innerText = `You said: "${responseInput}"`;
+            document.getElementById("greeting").style.display = "none";
+            document.getElementById("transition").style.display = "block";
+        }
+
+        // Start the generator
+        function startGenerator() {
+            document.getElementById("transition").style.display = "none";
+            document.getElementById("generator").style.display = "block";
+        }
+
+        // Display sequential text
+        function generateSequentialText() {
+            // Display the current text
+            document.getElementById("result").innerText = textArray[currentIndex];
+
+            // Increment the counter, looping back to the start if needed
+            currentIndex = (currentIndex + 1) % textArray.length;
         }
     </script>
 </body>
